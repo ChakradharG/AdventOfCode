@@ -28,6 +28,32 @@ func part1(scanner *bufio.Scanner) int {
 	return ans
 }
 
+func part2(scanner *bufio.Scanner) int {
+	ans := 0
+	for scanner.Scan() {
+		line := string(scanner.Text())
+		n := len(line)
+		row0 := [12]string{}
+		row1 := [12]string{}
+		row1[0] = string(line[n-1])
+		k := 2
+		for i := n - 2; i >= 0; i-- {
+			row0[0] = max(row1[0], string(line[i]))
+			for j := 1; j < k; j++ {
+				row0[j] = max(
+					string(line[i])+row1[j-1],
+					row1[j],
+				)
+			}
+			k = min(12, k+1)
+			row0, row1 = row1, row0
+		}
+		cur, _ := strconv.Atoi(row1[11])
+		ans += cur
+	}
+	return ans
+}
+
 func main() {
 	inp, err := os.Open("./input.txt")
 	if err != nil {
@@ -37,5 +63,6 @@ func main() {
 
 	scanner := bufio.NewScanner(inp)
 
-	fmt.Println(part1(scanner))
+	// fmt.Println(part1(scanner))
+	fmt.Println(part2(scanner))
 }
