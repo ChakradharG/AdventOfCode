@@ -1,0 +1,41 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strconv"
+)
+
+func part1(scanner *bufio.Scanner) int {
+	ans := 0
+	for scanner.Scan() {
+		line := string(scanner.Text())
+		mx1, mx2 := 0, 0
+		for i := range len(line) - 1 {
+			d, _ := strconv.Atoi(string(line[i]))
+			if d > mx1 {
+				mx2 = 0
+				mx1 = d
+			} else if d > mx2 {
+				mx2 = d
+			}
+		}
+		temp, _ := strconv.Atoi(string(line[len(line)-1]))
+		mx2 = max(mx2, temp)
+		ans += 10*mx1 + mx2
+	}
+	return ans
+}
+
+func main() {
+	inp, err := os.Open("./input.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer inp.Close()
+
+	scanner := bufio.NewScanner(inp)
+
+	fmt.Println(part1(scanner))
+}
