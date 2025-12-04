@@ -31,24 +31,25 @@ func part1(scanner *bufio.Scanner) int {
 func part2(scanner *bufio.Scanner) int {
 	ans := 0
 	for scanner.Scan() {
-		line := string(scanner.Text())
+		line := []rune(scanner.Text())
 		n := len(line)
-		row0 := [12]string{}
-		row1 := [12]string{}
-		row1[0] = string(line[n-1])
-		k := 2
-		for i := n - 2; i >= 0; i-- {
-			row0[0] = max(row1[0], string(line[i]))
-			for j := 1; j < k; j++ {
-				row0[j] = max(
-					string(line[i])+row1[j-1],
-					row1[j],
-				)
+		stack := [12]rune{}
+		for i := range n {
+			ch := line[i]
+			for j := max(0, i+12-n); j < 12; j++ {
+				if stack[j] < ch {
+					stack[j] = ch
+					for k := j + 1; k < 12; k++ {
+						stack[k] = '0'
+					}
+					break
+				}
 			}
-			k = min(12, k+1)
-			row0, row1 = row1, row0
 		}
-		cur, _ := strconv.Atoi(row1[11])
+		cur := 0
+		for j := range 12 {
+			cur = 10*cur + int(stack[j]-'0')
+		}
 		ans += cur
 	}
 	return ans
