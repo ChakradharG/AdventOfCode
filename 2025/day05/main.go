@@ -30,6 +30,20 @@ func part1(intervals []interval, ids []uint64) int {
 	return ans
 }
 
+func part2(intervals []interval) uint64 {
+	r := intervals[0].R
+	ans := r - intervals[0].L + 1
+	for i := 1; i < len(intervals); i++ {
+		R := intervals[i].R
+		if r <= R {
+			L := max(intervals[i].L-1, r)
+			ans += (R - L)
+			r = R
+		}
+	}
+	return ans
+}
+
 func main() {
 	inp, err := os.Open("./input.txt")
 	if err != nil {
@@ -77,5 +91,6 @@ func main() {
 		return ids[i] < ids[j]
 	})
 
-	fmt.Println(part1(intervals, ids))
+	// fmt.Println(part1(intervals, ids))
+	fmt.Println(part2(intervals))
 }
