@@ -58,6 +58,42 @@ func part1(scanner *bufio.Scanner) uint64 {
 	return ans
 }
 
+func part2(scanner *bufio.Scanner) uint64 {
+	row := make([]uint64, 3722)
+	ans := uint64(0)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if line[0] == '+' || line[0] == '*' {
+			op, cur := rune(line[0]), uint64(0)
+			for j, ch := range line {
+				if (j < len(line)-1) && (line[j+1] == '+' || line[j+1] == '*') {
+					continue
+				}
+				if ch == '+' || ch == '*' {
+					ans += cur
+					cur = row[j]
+					op = ch
+				} else {
+					if op == '+' {
+						cur += row[j]
+					} else {
+						cur *= row[j]
+					}
+				}
+			}
+			ans += cur
+		} else {
+			for j, num := range line {
+				if num == ' ' {
+					continue
+				}
+				row[j] = 10*row[j] + uint64(num-'0')
+			}
+		}
+	}
+	return ans
+}
+
 func main() {
 	inp, err := os.Open("./input.txt")
 	if err != nil {
@@ -67,6 +103,6 @@ func main() {
 
 	scanner := bufio.NewScanner(inp)
 
-	fmt.Println(part1(scanner))
-
+	// fmt.Println(part1(scanner))
+	fmt.Println(part2(scanner))
 }
