@@ -23,13 +23,14 @@ type DSU struct {
 	size   []int
 }
 
-func (d *DSU) Union(a int, b int) {
+func (d *DSU) Union(a int, b int) bool {
 	aPar := d.Find(a)
 	bPar := d.Find(b)
 	if aPar != bPar {
 		d.parent[bPar] = aPar
 		d.size[aPar] += d.size[bPar]
 	}
+	return aPar != bPar
 }
 
 func (d *DSU) Find(a int) int {
@@ -97,6 +98,32 @@ func part1(boxes []Box, dsu *DSU) uint64 {
 	return uint64(m0 * m1 * m2)
 }
 
+func part2(boxes []Box, dsu *DSU) uint64 {
+	n := len(boxes)
+	heap := bh.NewWith(customComparator)
+	for i := 0; i < n; i++ {
+		for j := i + 1; j < n; j++ {
+			h := HeapElem{-distance(boxes[i], boxes[j]), i, j}
+			heap.Push(h)
+		}
+	}
+
+	ans := uint64(0)
+	for range heap.Size() {
+		v, _ := heap.Pop()
+		a := v.(HeapElem).a
+		b := v.(HeapElem).b
+		if dsu.Union(a, b) {
+			n--
+		}
+		if n == 1 {
+			ans = uint64(boxes[a].X * boxes[b].X)
+			break
+		}
+	}
+	return ans
+}
+
 func main() {
 	inp, err := os.Open("./input.txt")
 	if err != nil {
@@ -118,5 +145,6 @@ func main() {
 		dsu.size = append(dsu.size, 1)
 	}
 
-	fmt.Println(part1(boxes, &dsu))
+	// fmt.Println(part1(boxes, &dsu))
+	fmt.Println(part2(boxes, &dsu))
 }
