@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 )
@@ -13,10 +14,7 @@ func part1(scanner *bufio.Scanner) int {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		steps, err := strconv.Atoi(line[1:])
-		if err != nil {
-			panic(err)
-		}
+		steps, _ := strconv.Atoi(line[1:])
 		steps %= 100
 
 		if line[0] == 'L' {
@@ -39,10 +37,7 @@ func part2(scanner *bufio.Scanner) int {
 	for scanner.Scan() {
 		line := scanner.Text()
 
-		steps, err := strconv.Atoi(line[1:])
-		if err != nil {
-			panic(err)
-		}
+		steps, _ := strconv.Atoi(line[1:])
 		ans += steps / 100 // crosses zero
 		steps %= 100
 
@@ -65,7 +60,7 @@ func part2(scanner *bufio.Scanner) int {
 func main() {
 	inp, err := os.Open("./input.txt")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer inp.Close()
 

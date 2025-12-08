@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -59,7 +60,7 @@ func part2(line string) uint64 {
 func main() {
 	inp, err := os.ReadFile("./input.txt")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	line := strings.TrimSpace(string(inp))
 

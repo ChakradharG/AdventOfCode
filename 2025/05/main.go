@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"sort"
 	"strconv"
@@ -47,7 +48,7 @@ func part2(intervals []interval) uint64 {
 func main() {
 	inp, err := os.Open("./input.txt")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer inp.Close()
 
@@ -62,22 +63,13 @@ func main() {
 			break
 		}
 
-		L, err := strconv.ParseUint(left, 10, 64)
-		if err != nil {
-			panic(err)
-		}
-		R, err := strconv.ParseUint(right, 10, 64)
-		if err != nil {
-			panic(err)
-		}
+		L, _ := strconv.ParseUint(left, 10, 64)
+		R, _ := strconv.ParseUint(right, 10, 64)
 		intervals = append(intervals, interval{L, R})
 	}
 	for scanner.Scan() {
 		line := scanner.Text()
-		id, err := strconv.ParseUint(line, 10, 64)
-		if err != nil {
-			panic(err)
-		}
+		id, _ := strconv.ParseUint(line, 10, 64)
 		ids = append(ids, id)
 	}
 	sort.Slice(intervals, func(i int, j int) bool {

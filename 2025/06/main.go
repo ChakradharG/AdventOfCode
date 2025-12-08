@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -97,7 +98,7 @@ func part2(scanner *bufio.Scanner) uint64 {
 func main() {
 	inp, err := os.Open("./input.txt")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer inp.Close()
 
