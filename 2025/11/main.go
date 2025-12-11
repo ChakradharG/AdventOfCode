@@ -32,6 +32,11 @@ func part1() uint64 {
 	return dfs("you", "out")
 }
 
+func part2() uint64 {
+	return (dfs("svr", "dac")*dfs("dac", "fft")*dfs("fft", "out") +
+		dfs("svr", "fft")*dfs("fft", "dac")*dfs("dac", "out"))
+}
+
 func main() {
 	inp, err := os.Open("./input.txt")
 	if err != nil {
@@ -51,4 +56,5 @@ func main() {
 	}
 
 	fmt.Println(part1())
+	fmt.Println(part2())
 }
