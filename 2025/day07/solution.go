@@ -1,4 +1,4 @@
-package main
+package day07
 
 import (
 	"bufio"
@@ -7,11 +7,11 @@ import (
 	"os"
 )
 
-func part1(scanner *bufio.Scanner) int {
+func part1(data []string) int {
 	beam := map[int]bool{}
 	ans := 0
-	for scanner.Scan() {
-		for j, c := range scanner.Text() {
+	for _, line := range data {
+		for j, c := range line {
 			if c == 'S' {
 				beam[j] = true
 			} else if (c == '^') && beam[j] {
@@ -25,11 +25,11 @@ func part1(scanner *bufio.Scanner) int {
 	return ans
 }
 
-func part2(scanner *bufio.Scanner) int {
+func part2(data []string) int {
 	beam := map[int]int{}
 	ans := 0
-	for scanner.Scan() {
-		for j, c := range scanner.Text() {
+	for _, line := range data {
+		for j, c := range line {
 			if c == 'S' {
 				ans++
 				beam[j]++
@@ -44,15 +44,19 @@ func part2(scanner *bufio.Scanner) int {
 	return ans
 }
 
-func main() {
-	inp, err := os.Open("./input.txt")
+func Run() {
+	inp, err := os.Open("./day07/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer inp.Close()
 
 	scanner := bufio.NewScanner(inp)
+	data := []string{}
+	for scanner.Scan() {
+		data = append(data, scanner.Text())
+	}
 
-	// fmt.Println(part1(scanner))
-	fmt.Println(part2(scanner))
+	fmt.Println("Part 1:", part1(data))
+	fmt.Println("Part 2:", part2(data))
 }

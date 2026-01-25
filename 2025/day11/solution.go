@@ -1,4 +1,4 @@
-package main
+package day11
 
 import (
 	"bufio"
@@ -37,8 +37,8 @@ func part2() uint64 {
 		dfs("svr", "fft")*dfs("fft", "dac")*dfs("dac", "out"))
 }
 
-func main() {
-	inp, err := os.Open("./input.txt")
+func Run() {
+	inp, err := os.Open("./day11/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -55,6 +55,6 @@ func main() {
 		}
 	}
 
-	fmt.Println(part1())
-	fmt.Println(part2())
+	fmt.Println("Part 1:", part1())
+	fmt.Println("Part 2:", part2())
 }

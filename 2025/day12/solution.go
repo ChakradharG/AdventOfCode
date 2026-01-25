@@ -1,4 +1,4 @@
-package main
+package day12
 
 import (
 	"bufio"
@@ -28,8 +28,8 @@ func part1(scanner *bufio.Scanner) uint64 {
 	return ans
 }
 
-func main() {
-	inp, err := os.Open("./input.txt")
+func Run() {
+	inp, err := os.Open("./day12/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -41,5 +41,6 @@ func main() {
 		scanner.Scan()
 	}
 
-	fmt.Println(part1(scanner))
+	fmt.Println("Part 1:", part1(scanner))
+	fmt.Println("Part 2:", "Free star!")
 }

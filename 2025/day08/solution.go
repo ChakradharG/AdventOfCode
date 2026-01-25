@@ -1,4 +1,4 @@
-package main
+package day08
 
 import (
 	"bufio"
@@ -23,7 +23,7 @@ type DSU struct {
 	size   []int
 }
 
-func (d *DSU) Union(a int, b int) bool {
+func (d *DSU) Union(a, b int) bool {
 	aPar := d.Find(a)
 	bPar := d.Find(b)
 	if aPar != bPar {
@@ -46,7 +46,7 @@ type HeapElem struct {
 	b    int
 }
 
-func customComparator(a, b interface{}) int {
+func customComparator(a, b any) int {
 	d1 := a.(HeapElem).dist
 	d2 := b.(HeapElem).dist
 
@@ -124,8 +124,8 @@ func part2(boxes []Box, dsu *DSU) uint64 {
 	return ans
 }
 
-func main() {
-	inp, err := os.Open("./input.txt")
+func Run() {
+	inp, err := os.Open("./day08/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -133,7 +133,8 @@ func main() {
 
 	scanner := bufio.NewScanner(inp)
 	boxes := make([]Box, 0)
-	dsu := DSU{}
+	dsu1 := DSU{}
+	dsu2 := DSU{}
 	for scanner.Scan() {
 		parts := strings.Split(scanner.Text(), ",")
 		X, _ := strconv.ParseFloat(parts[0], 64)
@@ -141,10 +142,12 @@ func main() {
 		Z, _ := strconv.ParseFloat(parts[2], 64)
 		box := Box{X, Y, Z}
 		boxes = append(boxes, box)
-		dsu.parent = append(dsu.parent, len(dsu.parent))
-		dsu.size = append(dsu.size, 1)
+		dsu1.parent = append(dsu1.parent, len(dsu1.parent))
+		dsu1.size = append(dsu1.size, 1)
+		dsu2.parent = append(dsu2.parent, len(dsu2.parent))
+		dsu2.size = append(dsu2.size, 1)
 	}
 
-	// fmt.Println(part1(boxes, &dsu))
-	fmt.Println(part2(boxes, &dsu))
+	fmt.Println("Part 1:", part1(boxes, &dsu1))
+	fmt.Println("Part 2:", part2(boxes, &dsu2))
 }

@@ -1,4 +1,4 @@
-package main
+package day04
 
 import (
 	"bufio"
@@ -97,20 +97,20 @@ func part2(graph [][]rune) int {
 	return ans
 }
 
-func main() {
-	inp, err := os.Open("./input.txt")
+func Run() {
+	inp, err := os.Open("./day04/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer inp.Close()
 
 	scanner := bufio.NewScanner(inp)
-	graph := make([][]rune, 0)
+	graph := [][]rune{}
 	for scanner.Scan() {
 		line := []rune(scanner.Text())
 		graph = append(graph, line)
 	}
 
-	// fmt.Println(part1(graph))
-	fmt.Println(part2(graph))
+	fmt.Println("Part 1:", part1(graph))
+	fmt.Println("Part 2:", part2(graph))
 }

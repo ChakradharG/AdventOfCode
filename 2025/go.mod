@@ -1,4 +1,4 @@
-module github.com/ChakradharG/AdventOfCode
+module github.com/ChakradharG/AdventOfCode/2025
 
 go 1.24.1
 

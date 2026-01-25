@@ -1,4 +1,4 @@
-package main
+package day06
 
 import (
 	"bufio"
@@ -14,14 +14,14 @@ type Problem struct {
 	operator string
 }
 
-func part1(scanner *bufio.Scanner) uint64 {
+func part1(data []string) uint64 {
 	problems := make([]Problem, 0)
-	for scanner.Scan() {
-		line := strings.TrimSpace(scanner.Text())
+	for _, line := range data {
+		line = strings.TrimSpace(line)
 		if line[0] == '+' || line[0] == '*' {
 			i, j := 0, 0
 			for i < len(line) {
-				if string(line[i]) != " " {
+				if line[i] != ' ' {
 					problems[j].operator = string(line[i])
 					j++
 				}
@@ -59,11 +59,10 @@ func part1(scanner *bufio.Scanner) uint64 {
 	return ans
 }
 
-func part2(scanner *bufio.Scanner) uint64 {
+func part2(data []string) uint64 {
 	row := make([]uint64, 3722)
 	ans := uint64(0)
-	for scanner.Scan() {
-		line := scanner.Text()
+	for _, line := range data {
 		if line[0] == '+' || line[0] == '*' {
 			op, cur := rune(line[0]), uint64(0)
 			for j, ch := range line {
@@ -95,15 +94,19 @@ func part2(scanner *bufio.Scanner) uint64 {
 	return ans
 }
 
-func main() {
-	inp, err := os.Open("./input.txt")
+func Run() {
+	inp, err := os.Open("./day06/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer inp.Close()
 
 	scanner := bufio.NewScanner(inp)
+	data := []string{}
+	for scanner.Scan() {
+		data = append(data, scanner.Text())
+	}
 
-	// fmt.Println(part1(scanner))
-	fmt.Println(part2(scanner))
+	fmt.Println("Part 1:", part1(data))
+	fmt.Println("Part 2:", part2(data))
 }

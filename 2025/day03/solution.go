@@ -1,4 +1,4 @@
-package main
+package day03
 
 import (
 	"bufio"
@@ -8,10 +8,9 @@ import (
 	"strconv"
 )
 
-func part1(scanner *bufio.Scanner) int {
+func part1(data []string) int {
 	ans := 0
-	for scanner.Scan() {
-		line := string(scanner.Text())
+	for _, line := range data {
 		mx1, mx2 := 0, 0
 		for i := range len(line) - 1 {
 			d, _ := strconv.Atoi(string(line[i]))
@@ -29,10 +28,10 @@ func part1(scanner *bufio.Scanner) int {
 	return ans
 }
 
-func part2(scanner *bufio.Scanner) int {
+func part2(data []string) int {
 	ans := 0
-	for scanner.Scan() {
-		line := []rune(scanner.Text())
+	for _, line := range data {
+		line := []rune(line)
 		n := len(line)
 		stack := [12]rune{}
 		for i := range n {
@@ -56,15 +55,19 @@ func part2(scanner *bufio.Scanner) int {
 	return ans
 }
 
-func main() {
-	inp, err := os.Open("./input.txt")
+func Run() {
+	inp, err := os.Open("./day03/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer inp.Close()
 
 	scanner := bufio.NewScanner(inp)
+	data := []string{}
+	for scanner.Scan() {
+		data = append(data, scanner.Text())
+	}
 
-	// fmt.Println(part1(scanner))
-	fmt.Println(part2(scanner))
+	fmt.Println("Part 1:", part1(data))
+	fmt.Println("Part 2:", part2(data))
 }

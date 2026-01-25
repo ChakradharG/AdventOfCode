@@ -1,4 +1,4 @@
-package main
+package day09
 
 import (
 	"bufio"
@@ -141,8 +141,8 @@ func part2(points []Point) uint64 {
 	return uint64(0) // none found
 }
 
-func main() {
-	inp, err := os.Open("./input.txt")
+func Run() {
+	inp, err := os.Open("./day09/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -159,6 +159,6 @@ func main() {
 		N = max(N, y+1)
 	}
 
-	// fmt.Println(part1(points))
-	fmt.Println(part2(points))
+	fmt.Println("Part 1:", part1(points))
+	fmt.Println("Part 2:", part2(points))
 }

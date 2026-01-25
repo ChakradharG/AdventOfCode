@@ -1,4 +1,4 @@
-package main
+package day05
 
 import (
 	"bufio"
@@ -45,8 +45,8 @@ func part2(intervals []interval) uint64 {
 	return ans
 }
 
-func main() {
-	inp, err := os.Open("./input.txt")
+func Run() {
+	inp, err := os.Open("./day05/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -83,6 +83,6 @@ func main() {
 		return ids[i] < ids[j]
 	})
 
-	// fmt.Println(part1(intervals, ids))
-	fmt.Println(part2(intervals))
+	fmt.Println("Part 1:", part1(intervals, ids))
+	fmt.Println("Part 2:", part2(intervals))
 }

@@ -1,4 +1,4 @@
-package main
+package day10
 
 import (
 	"bufio"
@@ -135,7 +135,7 @@ func bfs2(machine Machine) uint64 {
 		result, the BFS search space grows exponentially and is not a
 		suitable algorithm for Part 2.
 
-		See `2025/10/main.py` for an ILP-based solution.
+		See `2025/10/solution.py` for an ILP-based solution.
 	*/
 	q, enqd := llq.New(), map[Joltage]bool{}
 	q.Enqueue(machine.jolts)
@@ -181,8 +181,8 @@ func part2(machines []Machine) uint64 {
 	return ans
 }
 
-func main() {
-	inp, err := os.Open("./input.txt")
+func Run() {
+	inp, err := os.Open("./day10/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -194,6 +194,7 @@ func main() {
 		machines = append(machines, *NewMachine(scanner.Text()))
 	}
 
-	fmt.Println(part1(machines))
-	// fmt.Println(part2(machines))
+	fmt.Println("Part 1:", part1(machines))
+	// fmt.Println("Part 2:", part2(machines))
+	fmt.Println("Part 2:", "See `2025/10/solution.py` for an ILP-based solution.")
 }
