@@ -83,7 +83,7 @@ def part2(instructions: list[Instruction]) -> str:
 def par2_alternate(screen: Screen) -> str:
 	img = create_image(screen)
 	ans = ollama.chat(
-		model="qwen3-vl:4b", 
+		model="glm-ocr", 
 		messages=[{
 			"role": "user", 
 			"content": "Extract the text from the image. Be precise and do not add any extra characters.",
