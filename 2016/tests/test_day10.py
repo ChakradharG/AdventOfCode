@@ -1,27 +1,27 @@
-from day10.solution import Bot, Output_Bin, part1, part2, Instruction
+from day10.solution import Bot, OutputBin, part1, Instruction
 
 def test_bot_propagate_chip():
 	bot = Bot()
-	output_bin_lo = Output_Bin()
-	output_bin_hi = Output_Bin()
+	output_bin_lo = OutputBin()
+	output_bin_hi = OutputBin()
 	bot.next_lo = output_bin_lo
 	bot.next_hi = output_bin_hi
 
 	bot.propagate_chip(5)
 	assert bot.chip_lo == 5
 	assert bot.chip_hi == -1
-	assert bot.responsible == False
+	assert not bot.responsible
 
 	bot.propagate_chip(10)
 	assert bot.chip_lo == -1
 	assert bot.chip_hi == -1
-	assert bot.responsible == False
+	assert not bot.responsible
 	assert output_bin_lo.chips == [5]
 	assert output_bin_hi.chips == [10]
 
 	bot.propagate_chip(17)
 	bot.propagate_chip(61)
-	assert bot.responsible == True
+	assert bot.responsible
 
 def test_part1():
 	bots = {
@@ -30,9 +30,9 @@ def test_part1():
 		"2": Bot()
 	}
 	output_bins = {
-		"0": Output_Bin(),
-		"1": Output_Bin(),
-		"2": Output_Bin()
+		"0": OutputBin(),
+		"1": OutputBin(),
+		"2": OutputBin()
 	}
 
 	bots["0"].next_lo = output_bins["2"]

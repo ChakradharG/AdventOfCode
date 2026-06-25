@@ -5,7 +5,7 @@ Instruction = namedtuple("Instruction", ["chip", "bot_id"])
 TARGET_LO = 17
 TARGET_HI = 61
 
-class Output_Bin:
+class OutputBin:
 	def __init__(self) -> None:
 		self.chips: list[int] = []
 	def propagate_chip(self, chip: int) -> None:
@@ -13,8 +13,8 @@ class Output_Bin:
 
 class Bot:
 	def __init__(self) -> None:
-		self.next_lo: Bot | Output_Bin | None = None
-		self.next_hi: Bot | Output_Bin | None = None
+		self.next_lo: Bot | OutputBin | None = None
+		self.next_hi: Bot | OutputBin | None = None
 		self.chip_lo: int = -1
 		self.chip_hi: int = -1
 		self.responsible: bool = False
@@ -41,7 +41,7 @@ def part1(bots: dict[str, Bot], instructions: list[Instruction]) -> str:
 			return bot_id
 	return "-1"	# should not reach this point
 
-def part2(output_bins: dict[str, Output_Bin]) -> int:
+def part2(output_bins: dict[str, OutputBin]) -> int:
 	result = 1
 	for bin_id in ["0", "1", "2"]:
 		result *= output_bins[bin_id].chips[0]
@@ -50,7 +50,7 @@ def part2(output_bins: dict[str, Output_Bin]) -> int:
 def run() -> None:
 	ob1 = re.compile(r"value (\d+) goes to bot (\d+)")
 	ob2 = re.compile(r"bot (\d+) gives low to (bot|output) (\d+) and high to (bot|output) (\d+)")
-	output_bins: dict[str, Output_Bin] = defaultdict(Output_Bin)
+	output_bins: dict[str, OutputBin] = defaultdict(OutputBin)
 	bots: dict[str, Bot] = defaultdict(Bot)
 	instructions: list[Instruction] = []
 	with open("./day10/input.txt", "r") as file:
